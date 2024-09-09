@@ -1,0 +1,20 @@
+{
+    "cSpell.ignorePaths": [
+        "pnpm-lock.yaml",
+        "node_modules",
+        "vscode-extension",
+        ".git/objects",
+        ".vscode",
+        ".vscode-insiders",
+    ],
+    "cSpell.ignoreRegExpList": [
+        "/import.+?from.*[\"'](.*?)[\"']/gi"
+    ],
+    "cSpell.ignoreWords": [
+        "astrojs",
+        "tsconfigs",
+    ],
+    "cSpell.words": [
+        "astro",
+    ],
+}
