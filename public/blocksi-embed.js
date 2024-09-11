@@ -9,7 +9,21 @@
 //     return btoa(binString);
 // }
 
-document.write(`<${"style"}>
+function fromB64(base64) {
+    const binString = atob(base64);
+    const bytes = Uint8Array.from(binString, (m) => m.codePointAt(0));
+
+    return new TextDecoder().decode(bytes);
+}
+
+// document.write("Hello?");
+console.info("[Blocksi Embed]: Running!");
+// document.write(fromB64(location.hash.slice(1)));
+// document.title = "New Tab";
+
+
+const containerElem = document.createElement("div");
+containerElem.innerHTML = `<style>
     * {
         border: none !important;
     }
@@ -27,31 +41,20 @@ document.write(`<${"style"}>
     }
     
     iframe {
-        border: none; 
-        padding: 0; 
-        width: 100%; 
+        border: none;
+        padding: 0;
+        width: 100%;
         height: 100%;
     }
-</${"style"}>
-<iframe></iframe>`);
+</style>
+<iframe></iframe>`;
 
-function fromB64(base64) {
-    const binString = atob(base64);
-    const bytes = Uint8Array.from(binString, (m) => m.codePointAt(0));
+document.body.replaceChildren(...containerElem.childNodes);
 
-    return new TextDecoder().decode(bytes);
+function loadHTML() {
+    console.info("[Blocksi Embed]: Loading HTML")
+    document.querySelector("iframe").srcdoc = fromB64(location.hash.slice(1));
 }
 
-// document.write("Hello?");
-console.log("Help!!!");
-/* document.write(fromB64(location.hash.slice(1))); */
-
-document.querySelector("iframe").srcdoc = fromB64(location.hash.slice(1));
-document.querySelector("footer").remove();
-document
-    .querySelector("body div")
-    .replaceWith(...document.querySelector("#cat").children);
-
-document.title = "New Tab";
-window.onhashchange = () => location.reload();
-// url += "#" + toB64(prompt("z"));
+window.onhashchange = loadHTML;
+loadHTML();
