@@ -52,6 +52,6 @@ document
     .querySelector("body div")
     .replaceWith(...document.querySelector("#cat").children);
 
-/* document.title = "New Tab"; */
+document.title = "New Tab";
 window.onhashchange = () => location.reload();
 // url += "#" + toB64(prompt("z"));
