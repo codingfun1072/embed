@@ -51,6 +51,7 @@ jobs:
       - name: Push
         run: |
           cd dist
+          git push -d output public_html
           git init -b public_html
           git add .
           git commit -m "Build public_html [Github actions]"
