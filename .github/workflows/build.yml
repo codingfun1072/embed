@@ -6,6 +6,7 @@ name: Build Site
 on:
   # Manual workflow triggering
   workflow_dispatch:
+  
   # Triggers the workflow on push or pull request events but only for the master branch
   push:
     branches: [main]
@@ -34,7 +35,8 @@ jobs:
       - name: Use Node.js LTS
         uses: actions/setup-node@v4
         with:
-          node-version: 'lts'
+          node-version: 'lts/*'
+          check-latest: true
 
       - name: Build
         run: |
