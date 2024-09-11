@@ -56,4 +56,4 @@ jobs:
           git commit -m "Build public_html [Github actions]"
           echo git remote add output https://${GITHUB_ACTOR}:${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git
           git remote add output https://${GITHUB_ACTOR}:${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git
-          git push -fu output public_html
+          git push -u output +public_html
