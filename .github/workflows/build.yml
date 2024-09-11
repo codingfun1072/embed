@@ -45,15 +45,15 @@ jobs:
 
       - name: Configure git user
         run: |
-          hub config --global user.name "github-actions[bot]"
-          hub config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
       - name: Push
         run: |
           cd dist
-          hub init -b public_html
-          hub add .
-          hub commit -m "Build public_html [Github actions]"
-          echo hub remote add output https://${GITHUB_ACTOR}:${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git
-          hub remote add output https://${GITHUB_ACTOR}:${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git
-          hub push -fu output public_html
+          git init -b public_html
+          git add .
+          git commit -m "Build public_html [Github actions]"
+          echo git remote add output https://${GITHUB_ACTOR}:${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git
+          git remote add output https://${GITHUB_ACTOR}:${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git
+          git push -fu output public_html
