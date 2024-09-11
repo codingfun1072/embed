@@ -42,19 +42,12 @@ jobs:
         run: |
           pnpm i
           pnpm run build
-
-      - name: Configure git user
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
-      - name: Push
-        run: |
-          cd dist
-          echo git remote add output https://${GITHUB_ACTOR}:${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git
-          git remote add output https://${GITHUB_ACTOR}:${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git
-          git push -d output public_html
-          git init -b public_html
-          git add .
-          git commit -m "Build public_html [Github actions]"
-          git push -u output +public_html
+      
+      # Deploy to branch
+      - name: Deploy to branch
+        uses: s0/git-publish-subdir-action@develop
+        env:
+          REPO: self
+          BRANCH: public_html
+          FOLDER: dist
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
