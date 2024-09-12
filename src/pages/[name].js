@@ -1,20 +1,18 @@
 import { readdir, readFile } from "node:fs/promises";
-import { fileURLToPath } from "node:url";
+import path from "node:path";
 
 
 function resolve(...params) {
-    const path = String.raw(...params);
+    const relativePath = String.raw(...params);
 
-    return fileURLToPath(
-        new URL(path, import.meta.url)
-    );
+    return path.resolve(relativePath);
 }
 
 
-const staticPaths = await readdir(
-        resolve`../lib/`, 
+const staticPaths = (await readdir(
+        resolve`./src/lib/`, 
         { withFileTypes: true }
-    )
+    ))
     .filter(item => item.isFile())
     .map(({ name }) => ({
         params: { name }
@@ -26,7 +24,7 @@ export function getStaticPaths() {
 
 export async function GET({ params: { name } }) {
     const file = await readFile(
-        resolve`../lib/${name}`
+        resolve`./src/lib/${name}`
     );
 
     return new Response(file.buffer);
