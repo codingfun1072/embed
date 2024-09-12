@@ -29,6 +29,7 @@ containerElem.innerHTML = `<style>
     }
     
     html, body, iframe {
+        color-scheme: dark light;
         visibility: visible;
         width: 100vw !important;
         height: 100vh !important;
@@ -50,10 +51,13 @@ containerElem.innerHTML = `<style>
 <iframe></iframe>`;
 
 document.body.replaceChildren(...containerElem.childNodes);
+const iframe = document.querySelector("iframe");
 
 function loadHTML() {
     console.info("[Blocksi Embed]: Loading HTML")
-    document.querySelector("iframe").srcdoc = fromB64(location.hash.slice(1));
+
+    iframe.srcdoc = fromB64(location.hash.slice(1));
+    iframe.contentDocument.documentElement.style.colorScheme = "dark light";
 }
 
 window.onhashchange = loadHTML;
