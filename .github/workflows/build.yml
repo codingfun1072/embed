@@ -59,10 +59,10 @@ jobs:
       - name: Deploy to repo
         uses: s0/git-publish-subdir-action@v2.6.0
         env:
+          FOLDER: dist
           REPO: git@github.com:codingfun1072/embed_deploy.git
           BRANCH: main
-          FOLDER: dist
+          TARGET_DIR: www
           SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_PRIVATE_KEY }}
-          TARGET_DIR: dist
           COMMIT_NAME: 'github-actions[bot]'
           COMMIT_EMAIL: '41898282+github-actions[bot]@users.noreply.github.com'
