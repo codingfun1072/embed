@@ -27,10 +27,9 @@ export function getStaticPaths() {
 export async function GET({ params: { name } }) {
     const path = resolve`./src/lib/${name}`;
     const file = await readFile(path);
+
     if(!isUtf8(file) || !path.endsWith(".js")) return new Response(file.buffer);
 
-    //const { code } = await minifyHTMLLiterals(file.toString("utf8"));
     const result = await minifyHTMLLiterals(file.toString("utf8"));
-    console.log(result?.code ?? "null!!!");
     return new Response(result?.code ?? file.buffer);
 }
