@@ -1,3 +1,5 @@
+import { html } from "./common.js";
+
 // Encoding function
 //
 // function toB64(string) {
@@ -23,7 +25,7 @@ console.info("[Blocksi Embed]: Running!");
 
 
 const containerElem = document.createElement("div");
-containerElem.innerHTML = `<style>
+containerElem.innerHTML = html`<style>
     * {
         border: none !important;
     }
