@@ -1,0 +1,32 @@
+<!DOCTYPE html><html lang=en><head><meta charset=utf-8><link href=/favicon.svg rel=icon type=image/svg+xml><meta content="width=device-width" name=viewport><meta content="Astro v4.15.4" name=generator><title>Bloons Tower Defense 2</title><style>body{margin:0;line-height:0}body>*{width:100vw;height:100vh}</style></head><script type=module>const fileUrl = "https://cdn.jsdelivr.net/gh/codingfun1072/Offline-Flash-Games@f7283846334b716c11c7bfa5220bd9f3eab9c5bb/flash/games/Run.swf";
+const ruffleUrl = "https://unpkg.com/@ruffle-rs/ruffle/ruffle.js";
+const ruffleConfig = {};
+
+            window.RufflePlayer = window.RufflePlayer || {};
+            window.RufflePlayer.config = {
+                "publicPath": (new URL("./", ruffleUrl)).toString(),
+                "polyfills": false,
+                "allowScriptAccess": false,
+                "autoplay": "on",
+                "unmuteOverlay": "visible",
+                "letterbox": "off",
+                "warnOnUnsupportedContent": false,
+                "contextMenu": "rightClickOnly",
+                "showSwfDownload": false,
+                "splashScreen": true,
+                "openUrlMode": "confirm",
+                "favorFlash": false,
+            };
+        
+            await import(ruffleUrl);
+            const ruffle = window.RufflePlayer.newest();
+        
+            const player = ruffle.createPlayer();
+            const container = document.querySelector("body");
+
+            container.appendChild(player);
+        
+            player.load({
+                ...ruffleConfig,
+                url: fileUrl,
+            });</script></html>
