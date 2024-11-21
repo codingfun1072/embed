@@ -1,4 +1,4 @@
-import { html } from "./common.js";
+import { html } from "./common.js"
 
 // Encoding function
 //

@@ -1,0 +1,87 @@
+---
+import Layout from "@/layouts/base.astro";
+import { type RuffleConfig } from "./ruffle";
+
+
+declare global {
+    interface Window {
+        RufflePlayer: {
+            newest: any,
+            config: RuffleConfig,
+        };
+    }
+
+    var ruffleUrl: "https://unpkg.com/@ruffle-rs/ruffle/ruffle.js" | (string & {});
+    var fileUrl: string;
+    var ruffleConfig: RuffleConfig;
+}
+
+interface Props {
+  src: string;
+  title: string;
+  version?: "latest" | (string & {});
+  ruffleConfig?: RuffleConfig;
+}
+
+const { 
+    src: fileUrl, 
+    title = "Game", 
+    version = "latest",
+    ruffleConfig = {},
+} = Astro.props;
+
+const ruffleUrl = version === "latest" 
+    ? "https://unpkg.com/@ruffle-rs/ruffle/ruffle.js" 
+    : `https://cdn.jsdelivr.net/npm/@ruffle-rs/ruffle@${version}/ruffle.js`
+---
+
+<Layout>
+    <Fragment slot="title">
+        <title>{title}</title>
+    </Fragment>
+    <Fragment slot="head">
+        <style is:inline>
+            body {
+                margin: 0;
+                line-height: 0;
+            }
+        
+            body > * {
+                width: 100vw;
+                height: 100vh;
+            }
+        </style>
+    </Fragment>
+    <body>
+        <script type="module" define:vars={{ fileUrl, ruffleUrl, ruffleConfig }} is:inline>
+            window.RufflePlayer = window.RufflePlayer || {};
+            window.RufflePlayer.config = {
+                "publicPath": (new URL("./", ruffleUrl)).toString(),
+                "polyfills": false,
+                "allowScriptAccess": false,
+                "autoplay": "on",
+                "unmuteOverlay": "visible",
+                "letterbox": "off",
+                "warnOnUnsupportedContent": false,
+                "contextMenu": "rightClickOnly",
+                "showSwfDownload": false,
+                "splashScreen": true,
+                "openUrlMode": "confirm",
+                "favorFlash": false,
+            };
+        
+            await import(ruffleUrl);
+            const ruffle = window.RufflePlayer.newest();
+        
+            const player = ruffle.createPlayer();
+            const container = document.querySelector("body");
+
+            container.appendChild(player);
+        
+            player.load({
+                ...ruffleConfig,
+                url: fileUrl,
+            });
+        </script>
+    </body>
+</Layout>
